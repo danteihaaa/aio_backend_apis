@@ -9,7 +9,7 @@ module.exports = app => {
     // router.post("/", attendanceController.create);
 
     router.post("/mark", [authJwt.verifyToken, checkAttendance.checkAttendanceAlreadyMarked], attendanceController.markmyattendance);
-    router.post("/getall", [authJwt.verifyToken], attendanceController.getallattendance);
+    router.get("/getall", [authJwt.verifyToken], attendanceController.getallattendance);
 
     app.use("/api/attendances", router);
   };  
