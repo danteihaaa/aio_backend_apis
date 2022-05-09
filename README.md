@@ -1,61 +1,111 @@
-# REST API using Node.js, Express, Sequelize and MySQL + JWT Authentication and Authorization
 
-## Getting Started
+# AIO(All in One Management System) Backend Project
 
-1. Clone this repository
+Backend system for All in One Management System Project! Written using Node + Express.js with Sequelize as ORM!
 
-   ```bash
-   git clone https://github.com/indraarianggi/nodejs-sequelize-mysql-api.git
-   cd nodejs-sequelize-mysql-api
-   ```
+## Acknowledgements
 
-2. Install the npm packages
+ - [nodejs-sequelize-mysql-api template](https://github.com/indraarianggi/nodejs-sequelize-mysql-api)
+## API Reference
 
-   ```bash
-   npm install
-   ```
+#### Authentication (signup)
 
-   Also install `nodemon` globally, if you don't have it yet.
+```http
+  POST /api/auth/signup
+```
 
-   ```bash
-   npm install -g nodemon
-   ```
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `username` | `string` | **Required**. Username (ie roll_no) |
+| `email` | `string` | **Required**. email |
+| `password` | `string` | **Required**. Password |
 
-3. Congfigure environment settings
+_Returns_
+```
+{
+    "message": "User was registered successfully!"
+}
+```
 
-   Create a file with the following name and location `.env` and copy the contents from `.env.example` into it. Replace the values with your specific configuration. Don't worry, this file is in the `.gitignore` so it won't get pushed to github.
+---
 
-   ```javasscript
-    NODE_ENV=development
-    PORT=8080
+#### Authentication (signin)
 
-    # Database
-    DB_HOST=your-db-host
-    DB_USER=your-db-username
-    DB_PASS=your-db-password
-    DB_NAME=your-db-name
-   ```
+```http
+  POST /api/auth/signin
+```
 
-4. Running the app locally
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `username` | `string` | **Required**. Username (ie roll_no) |
+| `password` | `string` | **Required**. Password |
 
-   Run this command, which is located in npm script in `package.json` file.
+_Returns_
+```
+{
+    "id": "58699668-d184-4e90-b31d-1768cd33de8d",
+    "username": "hsk1",
+    "email": "hari015841@gmail.com",
+    "roles": [
+        "ROLE_USER"
+    ],
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4Njk5NjY4LWQxODQtNGU5MC1iMzFkLTE3NjhjZDMzZGU4ZCIsImlhdCI6MTY1MjEwMzExOCwiZXhwIjoxNjUyMTg5NTE4fQ.ynRaOTT8nA2kf2kikuyXyPpUwRR0HM8bbV2Xy0JwBXY"
+}
+```
 
-   ```bash
-   npm run dev
-   ```
+---
 
-## Resources
+#### Mark Attendance For Today
 
-1. [Node.js Rest APIs example with Express, Sequelize & MySQL](https://bezkoder.com/node-js-express-sequelize-mysql/)
+```http
+  POST /api/attendances/mark
+```
+**HEADER PARAMS**
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `x-access-token`      | `string` | **Required**. accessToken returned after user signin |
 
-2. [Node.js – JWT Authentication & Authorization with JSONWebToken example](https://bezkoder.com/node-js-jwt-authentication-mysql/)
+_Returns_
+```
+{
+    "id": 1,
+    "userId": "58699668-d184-4e90-b31d-1768cd33de8d",
+    "updated_at": "2022-05-09T13:37:59.088Z",
+    "created_at": "2022-05-09T13:37:59.088Z"
+}
+```
 
-3. [In-depth Introduction to JWT-JSON Web Token](https://bezkoder.com/jwt-json-web-token/)
+---
 
-4. [Sequelize Documentation](https://sequelize.org/master/)
+#### Get all Attendance
 
-5. [Getting Started with Node, Express and Mysql Using Sequelize](https://medium.com/@prajramesh93/getting-started-with-node-express-and-mysql-using-sequelize-ed1225afc3e0)
+```http
+  GET /api/attendances/getall
+```
+**HEADER PARAMS**
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `x-access-token`      | `string` | **Required**. accessToken returned after user signin |
 
-6. [Hidup Mudah dengan Sequelize: ORM Untuk Aplikasi NodeJS](https://refactory.id/post/91-hidup-mudah-dengan-sequelize-orm-untuk-aplikasi-nodejs)
+_Returns_
+```
+[
+    {
+        "id": 0,
+        "created_at": "2022-05-09T13:15:39.000Z",
+        "updated_at": "2022-05-09T13:15:39.000Z",
+        "userId": "58699668-d184-4e90-b31d-1768cd33de8d"
+    },
+    {
+        "id": 1,
+        "created_at": "2022-05-09T13:37:59.000Z",
+        "updated_at": "2022-05-09T13:37:59.000Z",
+        "userId": "58699668-d184-4e90-b31d-1768cd33de8d"
+    }
+]
+```
 
-7. [Node.js Everywhere with Environment Variables!](https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786)
+---
+
+
+## MANY MORE UNDER PROGRESS -- COME BACK LATER
