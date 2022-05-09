@@ -25,9 +25,13 @@ db.Sequelize = Sequelize;
 db.Op = Op;
 db.sequelize = sequelize;
 
+db.attendance = require("./attendance.model.js")(sequelize, Sequelize, DataTypes);
+
 db.books = require("./book.model.js")(sequelize, Sequelize, DataTypes);
 db.user = require("./user.model.js")(sequelize, Sequelize, DataTypes);
 db.role = require("./role.model.js")(sequelize, Sequelize, DataTypes);
+
+db.user.hasMany(db.attendance);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",

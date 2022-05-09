@@ -26,11 +26,13 @@ db.sequelize.sync().then(() => {
 });
 
 // simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Hi there, welcome to this tutorial." });
-});
+// app.get("/", (req, res) => {
+//   res.json({ message: "Hi there, welcome to this tutorial." });
+// });
 
 // api routes
+require("./app/routes/attendance.routes")(app);
+
 require("./app/routes/book.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
