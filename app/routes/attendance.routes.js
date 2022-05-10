@@ -11,5 +11,7 @@ module.exports = app => {
     router.post("/mark", [authJwt.verifyToken, checkAttendance.checkAttendanceAlreadyMarked], attendanceController.markmyattendance);
     router.get("/getall", [authJwt.verifyToken], attendanceController.getallattendance);
 
+    router.get("/get/:rno", [authJwt.verifyToken], attendanceController.getAttendance);
+
     app.use("/api/attendances", router);
   };  

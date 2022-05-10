@@ -65,47 +65,128 @@ _Returns_
 | :-------- | :------- | :-------------------------------- |
 | `x-access-token`      | `string` | **Required**. accessToken returned after user signin |
 
-_Returns_
-```
-{
-    "id": 1,
-    "userId": "58699668-d184-4e90-b31d-1768cd33de8d",
-    "updated_at": "2022-05-09T13:37:59.088Z",
-    "created_at": "2022-05-09T13:37:59.088Z"
-}
-```
-
----
-
-#### Get all Attendance
-
-```http
-  GET /api/attendances/getall
-```
-**HEADER PARAMS**
+**JSON Request Body**
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `x-access-token`      | `string` | **Required**. accessToken returned after user signin |
+| `rollno`      | `integer` | **Required**. Rollno of student |
 
 _Returns_
 ```
 [
     {
-        "id": 0,
-        "created_at": "2022-05-09T13:15:39.000Z",
-        "updated_at": "2022-05-09T13:15:39.000Z",
-        "userId": "58699668-d184-4e90-b31d-1768cd33de8d"
-    },
-    {
         "id": 1,
-        "created_at": "2022-05-09T13:37:59.000Z",
-        "updated_at": "2022-05-09T13:37:59.000Z",
-        "userId": "58699668-d184-4e90-b31d-1768cd33de8d"
+        "created_at": "2022-05-10T07:07:16.000Z",
+        "updated_at": "2022-05-10T07:07:16.000Z",
+        "userId": "ad805313-716d-4e5f-bcfc-5758609d3d5c",
+        "studentRollno": 102003066
     }
 ]
 ```
 
 ---
 
+#### Give Laundary
+
+```http
+  POST /api/laundary/give
+```
+**HEADER PARAMS**
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `x-access-token`      | `string` | **Required**. accessToken returned after user signin |
+
+**JSON Request Body**
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `rollno`      | `integer` | **Required**. Rollno of student |
+| `data`      | `JSON String` | **Required**. Json encoded clothes data |
+
+_Returns_
+```
+{
+    "isCollected": false,
+    "id": 6,
+    "userId": "ad805313-716d-4e5f-bcfc-5758609d3d5c",
+    "data": [
+        {
+            "T-Shirts": 2,
+            "Shirts": 3,
+            "Jeans": 1,
+            "Bedsheet": 3
+        }
+    ],
+    "studentRollno": 102003066,
+    "updated_at": "2022-05-10T07:50:42.541Z",
+    "created_at": "2022-05-10T07:50:42.541Z"
+}
+```
+
+---
+
+#### Get My Laundary
+
+```http
+  GET /api/laundary/get
+```
+**HEADER PARAMS**
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `x-access-token`      | `string` | **Required**. accessToken returned after user signin |
+
+**JSON Request Body**
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `rollno`      | `integer` | **Required**. Rollno of student |
+
+_Returns_
+```
+[
+    {
+        "id": 6,
+        "data": "[{\"T-Shirts\":2,\"Shirts\":3,\"Jeans\":1,\"Bedsheet\":3}]",
+        "isCollected": false,
+        "created_at": "2022-05-10T07:50:42.000Z",
+        "updated_at": "2022-05-10T07:50:42.000Z",
+        "userId": "ad805313-716d-4e5f-bcfc-5758609d3d5c",
+        "studentRollno": 102003066
+    }
+]
+```
+
+---
+
+#### Collect Laundary
+
+```http
+  GET /api/laundary/collect
+```
+**HEADER PARAMS**
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `x-access-token`      | `string` | **Required**. accessToken returned after user signin |
+
+**JSON Request Body**
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `rollno`      | `integer` | **Required**. Rollno of student |
+| `laundaryId`      | `integer` | **Required**. Specific laundary Id of receipt |
+
+_Returns_
+```
+{
+    "message": "Successfully collected.",
+    "receipt": {
+        "id": 6,
+        "data": "[{\"T-Shirts\":2,\"Shirts\":3,\"Jeans\":1,\"Bedsheet\":3}]",
+        "isCollected": true,
+        "created_at": "2022-05-10T07:50:42.000Z",
+        "updated_at": "2022-05-10T07:53:50.591Z",
+        "userId": "ad805313-716d-4e5f-bcfc-5758609d3d5c",
+        "studentRollno": 102003066
+    }
+}
+```
+
+---
 
 ## MANY MORE UNDER PROGRESS -- COME BACK LATER

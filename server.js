@@ -21,9 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // database
 const db = require("./app/models");
 const Role = db.role;
-db.sequelize.sync().then(() => {
-  initial(); // Just use it in development, at the first time execution!. Delete it in production
-});
+// db.sequelize.sync().then(() => {
+//   initial(); // Just use it in development, at the first time execution!. Delete it in production
+// });
 
 // simple route
 // app.get("/", (req, res) => {
@@ -31,6 +31,9 @@ db.sequelize.sync().then(() => {
 // });
 
 // api routes
+require("./app/routes/test.routes")(app);
+
+require("./app/routes/laundary.routes")(app);
 require("./app/routes/attendance.routes")(app);
 
 require("./app/routes/book.routes")(app);
@@ -44,19 +47,19 @@ app.listen(PORT, () => {
 });
 
 // Just use it in development, at the first time execution!. Delete it in production
-function initial() {
-  Role.create({
-    id: 1,
-    name: "user"
-  });
+// function initial() {
+//   Role.create({
+//     id: 1,
+//     name: "user"
+//   });
 
-  Role.create({
-    id: 2,
-    name: "moderator"
-  });
+//   Role.create({
+//     id: 2,
+//     name: "moderator"
+//   });
 
-  Role.create({
-    id: 3,
-    name: "admin"
-  });
-}
+//   Role.create({
+//     id: 3,
+//     name: "admin"
+//   });
+// }

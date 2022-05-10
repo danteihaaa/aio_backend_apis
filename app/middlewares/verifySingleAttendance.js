@@ -5,10 +5,16 @@ const Op = db.Op;
 checkAttendanceAlreadyMarked = (req, res, next) => {
     const TODAY_START = new Date().setHours(0, 0, 0, 0);
     const NOW = new Date();
-    
+  
+  if(!req.body.rollno){
+    res.status(400).send({
+      message: "No roll no specified, aborting."
+    });
+    return;
+  }
   Attendance.findOne({
     where: {
-        userId: req.userId,
+      studentRollno: req.body.rollno,
         created_at: { 
               [Op.gt]: TODAY_START,
               [Op.lt]: NOW
